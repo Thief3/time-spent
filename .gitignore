@@ -125,7 +125,7 @@ dmypy.json
 .pyre/
 
 # Project
-./projects/*
+projects/*
 
 # Emacs
 ~*
