@@ -52,19 +52,20 @@ class CSVManager:
     def __init__(self, default_path = './projects'):
         os.makedirs(default_path, exist_ok=True)
         self.default_path = default_path
+        os.chdir(self.default_path)
         
     def write_stopwatch(self, file_name, stopwatch):
         # New file
-        if not os.path.exists(self.default_path + file_name):
-            with open(self.default_path + file_name, 'w', newline='') as csvfile:
+        if not os.path.exists(file_name):
+            with open(file_name, 'w', newline='') as csvfile:
                 stopwatch_writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 stopwatch_writer.writerow([stopwatch.start_time, stopwatch.end_time, stopwatch.get_time_elapsed()])
                 
         # Is a file
-        elif os.path.isfile(self.default_path + file_name):
+        elif os.path.isfile(file_name):
             # Is compatible
-            with open(self.default_path + file_name, 'a', newline='') as csvfile:
+            with open(file_name, 'a', newline='') as csvfile:
                 stopwatch_writer = csv.writer(csvfile, delimiter=',',
                                               quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 stopwatch_writer.writerow([stopwatch.start_time, stopwatch.end_time, stopwatch.get_time_elapsed()])
@@ -75,9 +76,9 @@ class CSVManager:
 
     def read_csv(self, file_name):
         stopwatch_list = []
-        if os.path.isfile(self.default_path + '/' + file_name):
+        if os.path.isfile(file_name):
             if True:#Compatible
-                with open(self.default_path + '/' + file_name, 'r') as f:
+                with open(file_name, 'r') as f:
                     csv_reader = csv.reader(f, delimiter=',', quotechar='|')
                     for row in csv_reader:
                         stopwatch = Stopwatch()
@@ -97,3 +98,19 @@ class FileNotFound(Exception):
 class FileNotCompatible(Exception):
     pass
 
+def main():
+    stopwatch = Stopwatch()
+    csv_manager = CSVManager()
+    while True:
+        print("Whats your command?")
+        command = input()
+        if command == 'start':
+            stopwatch.start_stopwatch()
+        elif command == 'end':
+            stopwatch.end_stopwatch()
+            print("Project name?")
+            name = input()
+            csv_manager.write_stopwatch(name, stopwatch)
+
+if __name__ == "__main__":
+    main()
