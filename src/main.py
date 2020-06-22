@@ -21,7 +21,7 @@ class Stopwatch:
             raise StopwatchReadOnly("stopwatch is set to read only")
 
     def pretty_start_time(self):
-        return datetime.utcfromtimestamp(int(self.start_time)).strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.fromtimestamp(int(self.start_time)).strftime('%Y-%m-%d %H:%M:%S')
         
     def end_stopwatch(self):
         if(self.read_only == True):
@@ -33,7 +33,7 @@ class Stopwatch:
             raise StopwatchNotOn("stopwatch not on")
 
     def pretty_end_time(self):
-        return datetime.utcfromtimestamp(int(self.end_time)).strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.fromtimestamp(int(self.end_time)).strftime('%Y-%m-%d %H:%M:%S')
         
     def get_time_elapsed(self):
         if(self.start_time > -1):
