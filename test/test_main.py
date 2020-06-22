@@ -198,3 +198,7 @@ def test_read_csv_with_new_file():
         csv_manager = CSVManager()
         csv_manager.read_csv('test_proj.csv')
         assert "file not found" in str(excinfo.value)
+
+# Kinda a pain to test properly, need to go out and find unixtimes.
+def test_pretty_print_csv():
+    pass
