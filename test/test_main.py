@@ -104,7 +104,7 @@ def test_inital_CSVManager_with_existing_path(tmp_path):
     csv_manager = CSVManager(default_path = "./test")
     assert csv_manager.default_path == "./test"
     assert os.path.exists(os.path.abspath(csv_manager.default_path)) == True
-    assert os.path.isdir(os.path.abspath(csv_manager.default_path)) == 1
+    assert os.path.isdir(os.path.abspath(csv_manager.default_path)) == True
 
 def test_inital_CSVManager_with_new_path(tmp_path):
     os.chdir(tmp_path)
@@ -120,12 +120,13 @@ def test_write_stopwatch_with_incorrect_file(tmp_path):
     pass    
 
 def test_write_stopwatch_with_existing_file(tmp_path):
+    os.chdir(tmp_path)
     test_path = tmp_path
-    with open(str(test_path) + "/exists.csv", 'w+', newline='') as csvfile:
+    with open("./exists.csv", 'w+', newline='') as csvfile:
         stopwatch_writer = csv.writer(csvfile, delimiter=',',
                                       quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        stopwatch_writer.writerow([20,30,10])
-    
+        stopwatch_writer.writerow([200,300,100])
+
     stopwatch = Stopwatch()
     stopwatch.start_time = 100
     stopwatch.end_time = 200
@@ -133,8 +134,8 @@ def test_write_stopwatch_with_existing_file(tmp_path):
     csv_manager = CSVManager(default_path = str(test_path))
     csv_manager.write_stopwatch('./exists.csv', stopwatch)
 
-    with open(str(test_path) + '/exists.csv', mode='r') as f:
-        assert f.read() == "20,30,10\n100,200,100\n"
+    with open('./exists.csv', mode='r') as f:
+        assert f.read() == "200,300,100\n100,200,100\n"
     
 def test_write_csv_with_new_file(tmp_path):
     os.chdir(tmp_path)

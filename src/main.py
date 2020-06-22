@@ -52,9 +52,9 @@ class CSVManager:
     def __init__(self, default_path = './projects'):
         os.makedirs(default_path, exist_ok=True)
         self.default_path = default_path
-        os.chdir(self.default_path)
         
     def write_stopwatch(self, file_name, stopwatch):
+        os.chdir(self.default_path)
         # New file
         if not os.path.exists(file_name):
             with open(file_name, 'w', newline='') as csvfile:
@@ -75,6 +75,7 @@ class CSVManager:
             raise FileNotFound("file not found")
 
     def read_csv(self, file_name):
+        os.chdir(self.default_path)
         stopwatch_list = []
         if os.path.isfile(file_name):
             if True:#Compatible
