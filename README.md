@@ -21,3 +21,7 @@ Then you have four commands:
 
 ![Demo](readme_resources/demo.gif)
 
+## Todo??
+- Turn into a REST API so that this can be done anywhere with a global store.
+- Create a front-end using VueJs.
+- Try and Catch some minor errors regarding input in the wrong order.
